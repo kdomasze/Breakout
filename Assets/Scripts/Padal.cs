@@ -6,6 +6,9 @@ public class Padal : MonoBehaviour
 {
     public float Speed = 5;
 
+    public Transform leftWall;
+    public Transform rightWall;
+
     private Transform _tranform;
 
 	// Use this for initialization
@@ -18,7 +21,20 @@ public class Padal : MonoBehaviour
 	void Update ()
 	{
 	    float input = Input.GetAxisRaw("Horizontal");
+	    float deltaX = input * Speed * Time.deltaTime;
 
-        _tranform.Translate(new Vector3(input * Speed * Time.deltaTime, 0, 0));
+	    float leftBoundPosition = _tranform.position.x - (_tranform.localScale.x / 2) - deltaX;
+	    float rightBoundPosition = _tranform.position.x + (_tranform.localScale.x / 2) + deltaX;
+
+        if (Mathf.Sign(input) == -1 && !(leftBoundPosition <= leftWall.position.x))
+	    {
+	        _tranform.Translate(new Vector3(deltaX, 0, 0));
+	    }
+
+        if (Mathf.Sign(input) == 1 && !(rightBoundPosition >= rightWall.position.x))
+	    {
+	        _tranform.Translate(new Vector3(deltaX, 0, 0));
+        }
+
 	}
 }

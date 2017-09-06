@@ -503,6 +503,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 6
+  leftWall: {fileID: 1410856602}
+  rightWall: {fileID: 1836292395}
 --- !u!1 &1007256515
 GameObject:
   m_ObjectHideFlags: 0
