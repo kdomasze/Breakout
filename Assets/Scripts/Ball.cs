@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
     public static Action OnGameOver;
 
     public float IntialSpeed = 5;
+    public float BallWaitTime = 1.5f;
 
     private Rigidbody2D _rigidbody;
     private Transform _transform;
@@ -29,7 +30,14 @@ public class Ball : MonoBehaviour
 
     void Reset()
     {
+        StartCoroutine(ResetCoroutine());
+    }
+
+    IEnumerator ResetCoroutine()
+    {
         _transform.position = new Vector3(0, 0);
+        _rigidbody.velocity = new Vector3(0, 0, 0);
+        yield return new WaitForSeconds(BallWaitTime);
         _rigidbody.velocity = new Vector3(IntialSpeed, IntialSpeed, 0);
     }
 
