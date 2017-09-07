@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    public static Action OnGameOver;
+
     public float IntialSpeed = 5;
 
     private Rigidbody2D _rigidbody;
@@ -46,6 +49,7 @@ public class Ball : MonoBehaviour
 
         if (other.gameObject.CompareTag("Game Over"))
         {
+            OnGameOver.Invoke();
             this.Reset();
         }
     }
