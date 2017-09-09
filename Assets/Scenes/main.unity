@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IntialSpeed: 5
+  BallWaitTime: 1.5
 --- !u!1 &209490241
 GameObject:
   m_ObjectHideFlags: 0
