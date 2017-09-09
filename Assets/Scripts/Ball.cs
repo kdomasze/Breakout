@@ -8,7 +8,12 @@ public class Ball : MonoBehaviour
     public static Action OnGameOver;
 
     public float IntialSpeed = 5;
+    
+
     public float BallWaitTime = 1.5f;
+
+    private float _maxSpeed;
+    private float _collisionFixSensitivity;
 
     private Rigidbody2D _rigidbody;
     private Transform _transform;
@@ -16,21 +21,24 @@ public class Ball : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    _rigidbody = GetComponent<Rigidbody2D>();
+	    _maxSpeed = IntialSpeed;
+        _collisionFixSensitivity = _maxSpeed / 2f;
+
+        _rigidbody = GetComponent<Rigidbody2D>();
 	    _transform = GetComponent<Transform>();
 
-        Reset();
-	}
+	    StartCoroutine(ResetCoroutine());
+    }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
-		
-	}
+        _collisionFixSensitivity = _maxSpeed / 2f;
 
-    void Reset()
-    {
-        StartCoroutine(ResetCoroutine());
+        if (_rigidbody.velocity.magnitude > _maxSpeed)
+        {
+            _rigidbody.velocity = _rigidbody.velocity.normalized * _maxSpeed;
+        }
     }
 
     IEnumerator ResetCoroutine()
@@ -51,6 +59,27 @@ public class Ball : MonoBehaviour
         }
     }
 
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (_rigidbody.velocity.x >= -_collisionFixSensitivity && _rigidbody.velocity.x <= 0f)
+        {
+            _rigidbody.velocity = new Vector2(-IntialSpeed, _rigidbody.velocity.y);
+        }
+        else if (_rigidbody.velocity.x <= _collisionFixSensitivity && _rigidbody.velocity.x > 0f)
+        {
+            _rigidbody.velocity = new Vector2(IntialSpeed, _rigidbody.velocity.y);
+        }
+
+        if (_rigidbody.velocity.y >= -_collisionFixSensitivity && _rigidbody.velocity.y <= 0f)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -IntialSpeed);
+        }
+        else if (_rigidbody.velocity.y <= _collisionFixSensitivity && _rigidbody.velocity.y > 0f)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, IntialSpeed);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Triggered on: " + other.gameObject.tag);
@@ -58,7 +87,7 @@ public class Ball : MonoBehaviour
         if (other.gameObject.CompareTag("Game Over"))
         {
             OnGameOver.Invoke();
-            this.Reset();
+            StartCoroutine(ResetCoroutine());
         }
     }
 }

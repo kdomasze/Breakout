@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96153da7c9343574da920295ac8f1af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionFixSensitivity: 2.5
   IntialSpeed: 5
   BallWaitTime: 1.5
 --- !u!1 &209490241
