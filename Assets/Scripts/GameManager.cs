@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Piece;
+    public GameObject Brick;
+
+    public int PointsPerBrick;
+    public int StartingBalls;
+
+    private int _currentScore;
+    private int _currentBalls;
 
     private int[,] _pieceMap =
     {
@@ -17,7 +23,12 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    GameObject pieceHolder = new GameObject("Piece Holder");
+	    Piece.OnDestroy += () => _currentScore += PointsPerBrick;
+
+	    _currentBalls = StartingBalls;
+	    Ball.OnOutOfBounds += () => _currentBalls -= 1;
+
+        GameObject pieceHolder = new GameObject("Brick Holder");
 
         for (int y = 0; y < 4; y++)
         {
@@ -25,7 +36,7 @@ public class GameManager : MonoBehaviour
             {
                 if (_pieceMap[y, x] == 1)
                 {
-                    GameObject pieceInstance = Instantiate(Piece);
+                    GameObject pieceInstance = Instantiate(Brick);
                     pieceInstance.transform.position = new Vector3((x * 1.25f), (y * -0.75f));
 
                     pieceInstance.transform.parent = pieceHolder.transform;
@@ -41,4 +52,14 @@ public class GameManager : MonoBehaviour
     {
 		
 	}
+
+    public int GetCurrentScore()
+    {
+        return _currentScore;
+    }
+
+    public int GetCurrentBalls()
+    {
+        return _currentBalls;
+    }
 }

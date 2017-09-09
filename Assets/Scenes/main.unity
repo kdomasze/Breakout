@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96153da7c9343574da920295ac8f1af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionFixSensitivity: 2.5
   IntialSpeed: 5
   BallWaitTime: 1.5
 --- !u!1 &209490241
@@ -384,7 +383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a743c0a2b90091d4ba2c1afdc8f3b7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Piece: {fileID: 1343351979045708, guid: 9be477d4df1a0874c863b7741c1b6d0b, type: 2}
+  Brick: {fileID: 1343351979045708, guid: 9be477d4df1a0874c863b7741c1b6d0b, type: 2}
+  PointsPerBrick: 10
+  StartingBalls: 3
 --- !u!4 &531825044
 Transform:
   m_ObjectHideFlags: 0
@@ -411,8 +412,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 1092008406}
   BallsRemainingText: {fileID: 564051821}
-  PointsPerBrick: 10
-  StartingBalls: 3
 --- !u!1 &564051819
 GameObject:
   m_ObjectHideFlags: 0

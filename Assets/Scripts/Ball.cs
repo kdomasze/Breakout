@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public static Action OnGameOver;
+    public static Action OnOutOfBounds;
 
     public float IntialSpeed = 5;
     
@@ -86,7 +86,7 @@ public class Ball : MonoBehaviour
 
         if (other.gameObject.CompareTag("Game Over"))
         {
-            OnGameOver.Invoke();
+            OnOutOfBounds.Invoke();
             StartCoroutine(ResetCoroutine());
         }
     }
