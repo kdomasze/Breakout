@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GameManager))]
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public Text ScoreText;
     public Text BallsRemainingText;
+    public GameObject GameOverOverlay;
 
     private GameManager _gameManager;
 
@@ -15,6 +17,8 @@ public class UIManager : MonoBehaviour
 	void Start ()
 	{
 	    _gameManager = GetComponent<GameManager>();
+
+	    GameManager.OnGameOver += () => ShowGameOver();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +30,9 @@ public class UIManager : MonoBehaviour
 
     private void ShowGameOver()
     {
+        Transform uiGroup = GameObject.FindObjectOfType<Canvas>().transform;
+        var gameOverOverlay = Instantiate(GameOverOverlay, uiGroup);
 
+        gameOverOverlay.GetComponentInChildren<Button>().onClick.AddListener((delegate () { SceneManager.LoadScene("menu"); }));
     }
 }

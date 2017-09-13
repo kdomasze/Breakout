@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Piece
   - Ball
   - Padal
   - Game Over
+  - Brick
   layers:
   - Default
   - TransparentFX

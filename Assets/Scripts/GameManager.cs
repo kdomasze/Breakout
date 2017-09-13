@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static Action OnGameOver;
+
     public GameObject Brick;
 
     public int PointsPerBrick;
@@ -11,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private int _currentScore;
     private int _currentBalls;
+
+    private bool _gameOver;
 
     private int[,] _pieceMap =
     {
@@ -23,6 +28,8 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+	    _gameOver = false;
+
 	    Piece.OnDestroy += () => _currentScore += PointsPerBrick;
 
 	    _currentBalls = StartingBalls;
@@ -50,7 +57,14 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
+        if (_currentBalls == 0 && !_gameOver)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Ball"));
+            Destroy(GameObject.FindGameObjectWithTag("Padal"));
+            OnGameOver.Invoke();
+
+            _gameOver = true;
+        }
 	}
 
     public int GetCurrentScore()
