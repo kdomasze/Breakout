@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public static Action OnOutOfBounds;
+    public Action OnOutOfBounds;
 
     public float IntialSpeed = 5;
-    
 
     public float BallWaitTime = 1.5f;
 
@@ -27,8 +26,10 @@ public class Ball : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 	    _transform = GetComponent<Transform>();
 
-	    StartCoroutine(ResetCoroutine());
-    }
+	    OnOutOfBounds += Reset;
+
+        Reset();
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -39,6 +40,16 @@ public class Ball : MonoBehaviour
         {
             _rigidbody.velocity = _rigidbody.velocity.normalized * _maxSpeed;
         }
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnNewLevel -= Reset;
+    }
+
+    public void Reset()
+    {
+        StartCoroutine(ResetCoroutine());
     }
 
     IEnumerator ResetCoroutine()
@@ -87,7 +98,6 @@ public class Ball : MonoBehaviour
         if (other.gameObject.CompareTag("Game Over"))
         {
             OnOutOfBounds.Invoke();
-            StartCoroutine(ResetCoroutine());
         }
     }
 }

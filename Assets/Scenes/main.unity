@@ -294,6 +294,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114912396554198404, guid: 2bd3ba813643a354cb9e32bb1ccb9cd7,
+        type: 2}
+      propertyPath: IntialSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912396554198404, guid: 2bd3ba813643a354cb9e32bb1ccb9cd7,
+        type: 2}
+      propertyPath: BallWaitTime
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2bd3ba813643a354cb9e32bb1ccb9cd7, type: 2}
   m_IsPrefabParent: 0
@@ -360,6 +370,7 @@ MonoBehaviour:
   Brick: {fileID: 1343351979045708, guid: 9be477d4df1a0874c863b7741c1b6d0b, type: 2}
   PointsPerBrick: 10
   StartingBalls: 3
+  StartingLevel: 0
 --- !u!4 &531825044
 Transform:
   m_ObjectHideFlags: 0
@@ -387,6 +398,8 @@ MonoBehaviour:
   ScoreText: {fileID: 1092008406}
   BallsRemainingText: {fileID: 564051821}
   GameOverOverlay: {fileID: 1054509285568124, guid: 15ce5242768f6e644a80ca88c8c91195,
+    type: 2}
+  GameWinOverlay: {fileID: 1048125496385328, guid: 84cda657e22c7b24e9d982f6d8914ef3,
     type: 2}
 --- !u!1 &564051819
 GameObject:

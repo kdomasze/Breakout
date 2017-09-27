@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public Text ScoreText;
     public Text BallsRemainingText;
     public GameObject GameOverOverlay;
+    public GameObject GameWinOverlay;
 
     private GameManager _gameManager;
 
@@ -19,7 +20,8 @@ public class UIManager : MonoBehaviour
 	    _gameManager = GetComponent<GameManager>();
 
 	    GameManager.OnGameOver += () => ShowGameOver();
-	}
+	    GameManager.OnGameWin += () => ShowGameWin();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -32,6 +34,14 @@ public class UIManager : MonoBehaviour
     {
         Transform uiGroup = GameObject.FindObjectOfType<Canvas>().transform;
         var gameOverOverlay = Instantiate(GameOverOverlay, uiGroup);
+
+        gameOverOverlay.GetComponentInChildren<Button>().onClick.AddListener((delegate () { SceneManager.LoadScene("menu"); }));
+    }
+
+    private void ShowGameWin()
+    {
+        Transform uiGroup = GameObject.FindObjectOfType<Canvas>().transform;
+        var gameOverOverlay = Instantiate(GameWinOverlay, uiGroup);
 
         gameOverOverlay.GetComponentInChildren<Button>().onClick.AddListener((delegate () { SceneManager.LoadScene("menu"); }));
     }
