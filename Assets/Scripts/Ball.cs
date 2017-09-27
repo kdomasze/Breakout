@@ -62,8 +62,6 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Collided with: " + col.gameObject.tag);
-
         if (col.gameObject.CompareTag("Brick"))
         {
             col.gameObject.GetComponent<Piece>().OnHit();

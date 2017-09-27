@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public static Action OnDestroy; 
+    public Action OnDestroy; 
     public void OnHit()
     {
         OnDestroy.Invoke();

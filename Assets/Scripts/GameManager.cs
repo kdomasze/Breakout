@@ -105,9 +105,6 @@ public class GameManager : MonoBehaviour
 
         _gameOver = false;
 
-        Piece.OnDestroy += () => _currentScore += PointsPerBrick;
-        Piece.OnDestroy += () => _piecesRemaining--;
-
         _currentBalls = StartingBalls;
         Ball ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>();
         ball.OnOutOfBounds += () => _currentBalls -= 1;
@@ -125,6 +122,12 @@ public class GameManager : MonoBehaviour
                 if (_pieceMap[_currentLevel, y, x] == 1)
                 {
                     GameObject pieceInstance = Instantiate(Brick);
+
+                    Piece piece = pieceInstance.GetComponent<Piece>();
+
+                    piece.OnDestroy += () => _currentScore += PointsPerBrick;
+                    piece.OnDestroy += () => _piecesRemaining--;
+
                     pieceInstance.transform.position = new Vector3((x * 1.25f), (y * -0.75f)); // Magic offset numbers
 
                     pieceInstance.transform.parent = pieceHolder.transform;
